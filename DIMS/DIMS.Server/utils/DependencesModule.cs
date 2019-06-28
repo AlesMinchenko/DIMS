@@ -12,7 +12,6 @@ namespace HIMS.Server.utils
     {
         public override void Load()
         {
-            Bind<ISampleService>().To<SampleService>();
             Bind<IUserService>().To<UserService>();
         }
     }

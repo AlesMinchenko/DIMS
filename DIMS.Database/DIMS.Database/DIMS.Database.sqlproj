@@ -73,6 +73,12 @@
     <None Include="ResetIdetity.sql" />
     <None Include="SeedData\UserProfileInitialData.sql" />
     <None Include="SeedData\DirectionInitialData.sql" />
+    <Build Include="StoredProcedures\DeleteTask.sql" />
+    <Build Include="Tables\Task.sql" />
+    <Build Include="Tables\UserTrack.sql" />
+    <Build Include="Tables\TaskTrack.sql" />
+    <Build Include="Views\vTask.sql" />
+    <Build Include="Views\vUserTrack.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SeedData\SampleInitialData.sql" />

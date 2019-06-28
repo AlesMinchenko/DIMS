@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>HIMS.EF.DAL.Data</RootNamespace>
     <AssemblyName>HIMS.EF.DAL.Data</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,8 +63,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="C__RefactorLog.cs">
+      <DependentUpon>DIMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DIMS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DIMS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DIMS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DIMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DIMS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DIMS.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Direction.cs">
-      <DependentUpon>HIMS.tt</DependentUpon>
+      <DependentUpon>DIMS.tt</DependentUpon>
     </Compile>
     <Compile Include="HIMS.Context.cs">
       <AutoGen>True</AutoGen>
@@ -87,17 +106,34 @@
     <Compile Include="Repositories\EFUnitOfWork.cs" />
     <Compile Include="Repositories\ProcedureManager.cs" />
     <Compile Include="Repositories\SampleRepository.cs" />
+    <Compile Include="Repositories\TaskRepository.cs" />
+    <Compile Include="Repositories\UserTrackRepository.cs" />
     <Compile Include="Sample.cs">
-      <DependentUpon>HIMS.tt</DependentUpon>
+      <DependentUpon>DIMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Task.cs">
+      <DependentUpon>DIMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaskTrack.cs">
+      <DependentUpon>DIMS.tt</DependentUpon>
     </Compile>
     <Compile Include="UserProfile.cs">
-      <DependentUpon>HIMS.tt</DependentUpon>
+      <DependentUpon>DIMS.tt</DependentUpon>
     </Compile>
     <Compile Include="UserTask.cs">
-      <DependentUpon>HIMS.tt</DependentUpon>
+      <DependentUpon>DIMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserTrack.cs">
+      <DependentUpon>DIMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vTask.cs">
+      <DependentUpon>DIMS.tt</DependentUpon>
     </Compile>
     <Compile Include="vUserProfile.cs">
-      <DependentUpon>HIMS.tt</DependentUpon>
+      <DependentUpon>DIMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vUserTrack.cs">
+      <DependentUpon>DIMS.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup />
@@ -107,6 +143,13 @@
       <LastGenOutput>HIMS.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="App.Config" />
+    <EntityDeploy Include="DIMS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DIMS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="DIMS.edmx.diagram">
+      <DependentUpon>DIMS.edmx</DependentUpon>
+    </None>
     <None Include="HIMS.edmx.diagram">
       <DependentUpon>HIMS.edmx</DependentUpon>
     </None>
@@ -116,6 +159,16 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DIMS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DIMS.Context.cs</LastGenOutput>
+      <DependentUpon>DIMS.edmx</DependentUpon>
+    </Content>
+    <Content Include="DIMS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DIMS.edmx</DependentUpon>
+      <LastGenOutput>DIMS.cs</LastGenOutput>
+    </Content>
     <Content Include="HIMS.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>HIMS.edmx</DependentUpon>
