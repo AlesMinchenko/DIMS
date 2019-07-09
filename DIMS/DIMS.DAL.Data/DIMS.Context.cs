@@ -21,12 +21,12 @@ namespace HIMS.EF.DAL.Data
             : base("name=DIMSContext")
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<C__RefactorLog> C__RefactorLog { get; set; }
         public virtual DbSet<Direction> Directions { get; set; }
         public virtual DbSet<Sample> Samples { get; set; }
@@ -56,5 +56,7 @@ namespace HIMS.EF.DAL.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SampleEntriesAmount", isAdminParameter, result);
         }
+
+        //public System.Data.Entity.DbSet<HIMS.Server.Models.TaskViewModel> TaskViewModels { get; set; }
     }
 }

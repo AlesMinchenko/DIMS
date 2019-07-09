@@ -31,7 +31,7 @@
           <Key>
             <PropertyRef Name="TaskId" />
           </Key>
-          <Property Name="TaskId" Type="int" Nullable="false" />
+          <Property Name="TaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Description" Type="nchar" MaxLength="10" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
@@ -143,7 +143,7 @@
           <Property Name="TrackNote" Type="nchar" MaxLength="20" />
           <Property Name="TrackDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__UserTrack__TaskI__30F848ED">
+        <Association Name="FK__UserTrack__TaskI__49C3F6B7">
           <End Role="Task" Type="Self.Task" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -251,7 +251,7 @@
     [vUserTrack].[TrackDate] AS [TrackDate]
     FROM [dbo].[vUserTrack] AS [vUserTrack]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__UserTrack__TaskI__30F848ED" Association="Self.FK__UserTrack__TaskI__30F848ED">
+          <AssociationSet Name="FK__UserTrack__TaskI__49C3F6B7" Association="Self.FK__UserTrack__TaskI__49C3F6B7">
             <End Role="Task" EntitySet="Task" />
             <End Role="UserTrack" EntitySet="UserTrack" />
           </AssociationSet>
@@ -300,12 +300,12 @@
           <Key>
             <PropertyRef Name="TaskId" />
           </Key>
-          <Property Name="TaskId" Type="Int32" Nullable="false" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DeadlineDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="UserTracks" Relationship="Self.FK__UserTrack__TaskI__30F848ED" FromRole="Task" ToRole="UserTrack" />
+          <NavigationProperty Name="UserTracks" Relationship="Self.FK__UserTrack__TaskI__49C3F6B7" FromRole="Task" ToRole="UserTrack" />
         </EntityType>
         <EntityType Name="TaskTrack">
           <Key>
@@ -356,7 +356,7 @@
           <Property Name="TaskName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="TrackNote" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="TrackDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Task" Relationship="Self.FK__UserTrack__TaskI__30F848ED" FromRole="UserTrack" ToRole="Task" />
+          <NavigationProperty Name="Task" Relationship="Self.FK__UserTrack__TaskI__49C3F6B7" FromRole="UserTrack" ToRole="Task" />
           <NavigationProperty Name="TaskTrack" Relationship="Self.FK__UserTrack__TaskT__31EC6D26" FromRole="UserTrack" ToRole="TaskTrack" />
         </EntityType>
         <EntityType Name="vTask">
@@ -427,7 +427,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrack__TaskI__30F848ED">
+        <Association Name="FK__UserTrack__TaskI__49C3F6B7">
           <End Role="Task" Type="Self.Task" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -485,7 +485,7 @@
             <End Role="Direction" EntitySet="Directions" />
             <End Role="UserProfile" EntitySet="UserProfiles" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrack__TaskI__30F848ED" Association="Self.FK__UserTrack__TaskI__30F848ED">
+          <AssociationSet Name="FK__UserTrack__TaskI__49C3F6B7" Association="Self.FK__UserTrack__TaskI__49C3F6B7">
             <End Role="Task" EntitySet="Tasks" />
             <End Role="UserTrack" EntitySet="UserTracks" />
           </AssociationSet>

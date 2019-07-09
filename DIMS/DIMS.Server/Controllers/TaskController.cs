@@ -14,6 +14,7 @@ namespace HIMS.Server.Controllers
     public class TaskController : Controller
     {
         IDIMSService dimsService;
+        //использовать в параметрах 1 данную
         public TaskController(IDIMSService serv)
         {
             dimsService = serv;
@@ -23,9 +24,8 @@ namespace HIMS.Server.Controllers
             IEnumerable<TaskDTO> taskDtos = dimsService.GetTasks();
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
             var tasks = mapper.Map<IEnumerable<TaskDTO>, List<TaskViewModel>>(taskDtos);
-            return View(tasks);
+            return View("Index", tasks);
         }
-
         public ActionResult Details(int? id)
         {
             if (id == 0)
@@ -45,7 +45,7 @@ namespace HIMS.Server.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            return View("Create");
         }
 
         [HttpPost]

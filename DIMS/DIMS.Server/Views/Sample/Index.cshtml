@@ -1,4 +1,4 @@
-﻿@model HIMS.Server.Models.SamplesListViewModel
+﻿@model HIMS.Server.Models.SampleViewModel
 
     @{
         ViewBag.Title = "Sample Page";
@@ -6,7 +6,7 @@
 
     <h2>Sample CRUD Grid</h2>
 
-    <p>The total amount of records is <b>@Model.SamplesAmount</b></p>
+    <p>The total amount of records is <b>@Model.Name</b></p>
 
     <p>
         @Html.ActionLink("Create", "Create", null, new { @class = "btn btn-success" })
@@ -19,16 +19,16 @@
                     #
                 </th>
                 <th>
-                    Name
+                    @Model.Name
                 </th>
                 <th>
-                    Description
+                    @Model.Description
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Samples)
+            @*@foreach (var item in Model.)
             {
                 <tr>
                     <th scope="row">
@@ -45,5 +45,5 @@
                         @Html.ActionLink("Delete", "Delete", new { id = item.SampleId }, new { @class = "btn btn-danger" })
                     </td>
                 </tr>
-            }
+            }*@
     </table>

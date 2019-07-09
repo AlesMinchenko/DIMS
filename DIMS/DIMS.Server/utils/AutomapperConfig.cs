@@ -18,6 +18,7 @@ namespace HIMS.Server.utils
                 cfg.CreateMap<Sample, SampleDTO>();
                 cfg.CreateMap<SampleDTO, Sample>();
                 cfg.CreateMap<SampleViewModel, SampleDTO>();
+
             });
         }
     }

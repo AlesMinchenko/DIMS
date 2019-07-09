@@ -14,5 +14,8 @@ namespace HIMS.BL.DTO
         public string TaskName { get; set; }
         public string TrackNote { get; set; }
         public DateTime TrackDate { get; set; }
+
+        public virtual TaskDTO Task { get; set; }
+        //public virtual TaskTrackDTO TaskTrack { get; set; }
     }
 }

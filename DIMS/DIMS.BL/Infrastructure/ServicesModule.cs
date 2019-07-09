@@ -27,7 +27,7 @@ namespace HIMS.BL.Infrastructure
         public override void Load()
         {
             Bind<IUnitOfWork>().To<EFUnitOfWork>().WithConstructorArgument(_connectionString);
-            Bind<IDIMSService>().To<DIMSService>().WithConstructorArgument(_connectionString);
+            //Bind<IDIMSService>().To<DIMSService>();//.WithConstructorArgument(_connectionString);
 
             Bind<HIMS.EF.DAL.Identity.Interfaces.IUnitOfWork>().To<IdentityUnitOfWork>().WithConstructorArgument(_identityConnectionString);
             Bind<IProcedureManager>().To<ProcedureManager>().WithConstructorArgument(_connectionString);
