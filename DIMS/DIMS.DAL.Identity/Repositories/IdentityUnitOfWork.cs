@@ -1,5 +1,4 @@
-﻿using HIMS.EF.DAL.Data;
-using HIMS.EF.DAL.Identity.Interfaces;
+﻿using HIMS.EF.DAL.Identity.Interfaces;
 using HIMS.EF.DAL.Identity.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -10,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HIMS.EF.DAL.Identity.Repositories
 {
-    public class IdentityUnitOfWork : Interfaces.IUnitOfWork
+    public class IdentityUnitOfWork : IUnitOfWork
     {
         private readonly IdentityContext _identityDbContext;
 
@@ -24,7 +23,7 @@ namespace HIMS.EF.DAL.Identity.Repositories
             UserSecurityManager = new ApplicationUserManager(new UserStore<ApplicationUser>(_identityDbContext));
         }
 
-        public async System.Threading.Tasks.Task SaveAsync()
+        public async Task SaveAsync()
         {
             await _identityDbContext.SaveChangesAsync().ConfigureAwait(false);
         }

@@ -8,11 +8,11 @@ namespace HIMS.EF.DAL.Data.Repositories
 {
     public class EFUnitOfWork : IUnitOfWork
     {
-        private DIMSContext db;
-        TaskRepository taskRepository;
-        UserTrackRepository userTrackRepository;
+        private readonly DIMSContext db;
+        private TaskRepository taskRepository;
+        private UserTrackRepository userTrackRepository;
 
-        public EFUnitOfWork(string connectionString)
+        public EFUnitOfWork()
         {
             db = new DIMSContext();
         }

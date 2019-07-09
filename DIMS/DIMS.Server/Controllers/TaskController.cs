@@ -15,9 +15,9 @@ namespace HIMS.Server.Controllers
     {
         IDIMSService dimsService;
         //использовать в параметрах 1 данную
-        public TaskController(IDIMSService serv)
+        public TaskController(IDIMSService dimsService)
         {
-            dimsService = serv;
+            this.dimsService = dimsService;
         }
         public ActionResult Index()
         {
@@ -32,15 +32,15 @@ namespace HIMS.Server.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var __taskDtos = dimsService.GetTask(id);
+            var taskDtos = dimsService.GetTask(id);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var taskDtos = mapper.Map<TaskDTO, TaskViewModel>(__taskDtos);
+            var taskResult = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
 
-            if (taskDtos == null)
+            if (taskResult == null)
             {
                 return HttpNotFound();
             }
-            return View(taskDtos);
+            return View(taskResult);
         }
 
         public ActionResult Create()
@@ -55,9 +55,9 @@ namespace HIMS.Server.Controllers
             if (ModelState.IsValid)
             {
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskViewModel, TaskDTO>()).CreateMapper();
-                var _task = mapper.Map<TaskViewModel, TaskDTO>(task);
+                var taskResult = mapper.Map<TaskViewModel, TaskDTO>(task);
 
-                dimsService.CreateT(_task);
+                dimsService.CreateT(taskResult);
                 return RedirectToAction("Index");
             }
 
@@ -73,14 +73,14 @@ namespace HIMS.Server.Controllers
 
             var taskDtos = dimsService.GetTask(id);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var _taskDtos = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
+            var taskResult = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
 
 
-            if (_taskDtos == null)
+            if (taskResult == null)
             {
                 return HttpNotFound();
             }
-            return View(_taskDtos);
+            return View(taskResult);
         }
 
         [HttpPost]
@@ -90,8 +90,8 @@ namespace HIMS.Server.Controllers
             if (ModelState.IsValid)
             {
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskViewModel, TaskDTO>()).CreateMapper();
-                var _taskDtos = mapper.Map<TaskViewModel, TaskDTO>(task);
-                dimsService.Edit(_taskDtos);
+                var taskResult = mapper.Map<TaskViewModel, TaskDTO>(task);
+                dimsService.Edit(taskResult);
 
                 return RedirectToAction("Index");
             }
@@ -106,12 +106,12 @@ namespace HIMS.Server.Controllers
             }
             var taskDtos = dimsService.GetTask(id);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var _taskDtos = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
-            if (_taskDtos == null)
+            var taskResult = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
+            if (taskResult == null)
             {
                 return HttpNotFound();
             }
-            return View(_taskDtos);
+            return View(taskResult);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -120,9 +120,9 @@ namespace HIMS.Server.Controllers
         {
             var taskDtos = dimsService.GetTask(id);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var _taskDtos = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
+            var taskResult = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
 
-            dimsService.DeleteT(_taskDtos.TaskId);
+            dimsService.DeleteT(taskResult.TaskId);
             return RedirectToAction("Index");
         }
 

@@ -3,4 +3,3 @@
 AS
 	Delete from Task
 	where TaskId = @taskid
-go

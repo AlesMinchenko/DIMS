@@ -14,9 +14,9 @@ namespace HIMS.Server.Controllers
     public class UserTrackController : Controller
     {
         IDIMSService dimsService;
-        public UserTrackController(IDIMSService serv)
+        public UserTrackController(IDIMSService dimsService)
         {
-            dimsService = serv;
+            this.dimsService = dimsService;
         }
         public ActionResult Index()
         {
@@ -32,15 +32,15 @@ namespace HIMS.Server.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var _userTrackDtos = dimsService.GetUserTrack(id);
+            var userTrackDtos = dimsService.GetUserTrack(id);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackDTO, UserTrackViewModel>()).CreateMapper();
-            var userTracks = mapper.Map<UserTrackDTO, UserTrackViewModel>(_userTrackDtos);
+            var userTracksResult = mapper.Map<UserTrackDTO, UserTrackViewModel>(userTrackDtos);
 
-            if (userTracks == null)
+            if (userTracksResult == null)
             {
                 return HttpNotFound();
             }
-            return View(userTracks);
+            return View(userTracksResult);
         }
 
         public ActionResult Create()
@@ -55,9 +55,9 @@ namespace HIMS.Server.Controllers
             if (ModelState.IsValid)
             {
                 var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackViewModel, UserTrackDTO>()).CreateMapper();
-                var _userTrack = mapper.Map<UserTrackViewModel, UserTrackDTO>(userTrack);
+                var userTrackResult = mapper.Map<UserTrackViewModel, UserTrackDTO>(userTrack);
 
-                dimsService.CreateU(_userTrack);
+                dimsService.CreateU(userTrackResult);
                 return RedirectToAction("Index");
             }
 
