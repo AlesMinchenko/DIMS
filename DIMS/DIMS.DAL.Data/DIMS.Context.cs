@@ -56,7 +56,5 @@ namespace HIMS.EF.DAL.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SampleEntriesAmount", isAdminParameter, result);
         }
-
-        //public System.Data.Entity.DbSet<HIMS.Server.Models.TaskViewModel> TaskViewModels { get; set; }
     }
 }

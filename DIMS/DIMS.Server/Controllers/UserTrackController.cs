@@ -13,14 +13,30 @@ namespace HIMS.Server.Controllers
 {
     public class UserTrackController : Controller
     {
-        IDIMSService dimsService;
-        public UserTrackController(IDIMSService dimsService)
+        IUserTrackService userTrackService;
+        public UserTrackController(IUserTrackService userTrackService)
         {
-            this.dimsService = dimsService;
+            this.userTrackService = userTrackService;
         }
+
+        #region Mappers
+        private UserTrackDTO Mapper(UserTrackViewModel userTrackViewModel)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackViewModel, UserTrackDTO>()).CreateMapper();
+            return mapper.Map<UserTrackViewModel, UserTrackDTO>(userTrackViewModel);
+
+        }
+        private UserTrackViewModel MapperForCRUD(UserTrackDTO userTrackDTO)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackDTO, UserTrackViewModel>()).CreateMapper();
+            return mapper.Map<UserTrackDTO, UserTrackViewModel>(userTrackDTO);
+
+        }
+        #endregion
+
         public ActionResult Index()
         {
-            IEnumerable<UserTrackDTO> userTrackDtos = dimsService.GetUserTracks();
+            IEnumerable<UserTrackDTO> userTrackDtos = userTrackService.GetUserTracks();
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackDTO, UserTrackViewModel>()).CreateMapper();
             var userTracks = mapper.Map<IEnumerable<UserTrackDTO>, List<UserTrackViewModel>>(userTrackDtos);
             return View(userTracks);
@@ -32,9 +48,8 @@ namespace HIMS.Server.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var userTrackDtos = dimsService.GetUserTrack(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackDTO, UserTrackViewModel>()).CreateMapper();
-            var userTracksResult = mapper.Map<UserTrackDTO, UserTrackViewModel>(userTrackDtos);
+            var userTrackDtos = userTrackService.GetUserTrack(id);
+            var userTracksResult = MapperForCRUD(userTrackDtos);
 
             if (userTracksResult == null)
             {
@@ -54,10 +69,9 @@ namespace HIMS.Server.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackViewModel, UserTrackDTO>()).CreateMapper();
-                var userTrackResult = mapper.Map<UserTrackViewModel, UserTrackDTO>(userTrack);
+                var userTrackResult = Mapper(userTrack);
 
-                dimsService.CreateU(userTrackResult);
+                userTrackService.Create(userTrackResult);
                 return RedirectToAction("Index");
             }
 
@@ -71,16 +85,15 @@ namespace HIMS.Server.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var userTrackDtos = dimsService.GetUserTrack(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackDTO, UserTrackViewModel>()).CreateMapper();
-            var _userTrackDtos = mapper.Map<UserTrackDTO, UserTrackViewModel>(userTrackDtos);
+            var userTrackDtos = userTrackService.GetUserTrack(id);
+            var userTrackResult = MapperForCRUD(userTrackDtos);
 
 
-            if (_userTrackDtos == null)
+            if (userTrackResult == null)
             {
                 return HttpNotFound();
             }
-            return View(_userTrackDtos);
+            return View(userTrackResult);
         }
 
         [HttpPost]
@@ -89,9 +102,8 @@ namespace HIMS.Server.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackViewModel, UserTrackDTO>()).CreateMapper();
-                var _userTrack = mapper.Map<UserTrackViewModel, UserTrackDTO>(userTrack);
-                dimsService.Edit(_userTrack);
+                var userTrackResult = Mapper(userTrack);
+                userTrackService.Edit(userTrackResult);
 
                 return RedirectToAction("Index");
             }
@@ -104,35 +116,24 @@ namespace HIMS.Server.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var userTrackDtos = dimsService.GetUserTrack(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackDTO, UserTrackViewModel>()).CreateMapper();
-            var _userTrackDtos = mapper.Map<UserTrackDTO, UserTrackViewModel>(userTrackDtos);
-            if (_userTrackDtos == null)
+            var userTrackDtos = userTrackService.GetUserTrack(id);
+            var userTrackResult = MapperForCRUD(userTrackDtos);
+            if (userTrackResult == null)
             {
                 return HttpNotFound();
             }
-            return View(_userTrackDtos);
+            return View(userTrackResult);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var userTrackDtos = dimsService.GetUserTrack(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackDTO, UserTrackViewModel>()).CreateMapper();
-            var _userTrackDtos = mapper.Map<UserTrackDTO, UserTrackViewModel>(userTrackDtos);
+            var userTrackDtos = userTrackService.GetUserTrack(id);
+            var userTrackResult = MapperForCRUD(userTrackDtos);
 
-            dimsService.DeleteU(userTrackDtos.UserId);
+            userTrackService.Delete(userTrackResult.UserId);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                dimsService.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

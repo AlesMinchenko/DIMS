@@ -13,15 +13,28 @@ namespace HIMS.Server.Controllers
 {
     public class TaskController : Controller
     {
-        IDIMSService dimsService;
-        //использовать в параметрах 1 данную
-        public TaskController(IDIMSService dimsService)
+        ITaskService taskService;
+        public TaskController(ITaskService taskService)
         {
-            this.dimsService = dimsService;
+            this.taskService = taskService;
         }
+        #region Mappers
+        private TaskDTO Mapper(TaskViewModel taskViewModel)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskViewModel, TaskDTO>()).CreateMapper();
+            return mapper.Map<TaskViewModel, TaskDTO>(taskViewModel);
+
+        }
+        private TaskViewModel MapperForCRUD(TaskDTO taskDTO)
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
+            return mapper.Map<TaskDTO, TaskViewModel>(taskDTO);
+
+        }
+        #endregion
         public ActionResult Index()
         {
-            IEnumerable<TaskDTO> taskDtos = dimsService.GetTasks();
+            IEnumerable<TaskDTO> taskDtos = taskService.GetTasks();
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
             var tasks = mapper.Map<IEnumerable<TaskDTO>, List<TaskViewModel>>(taskDtos);
             return View("Index", tasks);
@@ -32,9 +45,8 @@ namespace HIMS.Server.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var taskDtos = dimsService.GetTask(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var taskResult = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
+            var taskDtos = taskService.GetTask(id);
+            var taskResult = MapperForCRUD(taskDtos);
 
             if (taskResult == null)
             {
@@ -54,10 +66,9 @@ namespace HIMS.Server.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskViewModel, TaskDTO>()).CreateMapper();
-                var taskResult = mapper.Map<TaskViewModel, TaskDTO>(task);
+                var taskResult = Mapper(task);
 
-                dimsService.CreateT(taskResult);
+                taskService.Create(taskResult);
                 return RedirectToAction("Index");
             }
 
@@ -71,10 +82,8 @@ namespace HIMS.Server.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var taskDtos = dimsService.GetTask(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var taskResult = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
-
+            var taskDtos = taskService.GetTask(id);
+            var taskResult = MapperForCRUD(taskDtos);
 
             if (taskResult == null)
             {
@@ -89,9 +98,8 @@ namespace HIMS.Server.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskViewModel, TaskDTO>()).CreateMapper();
-                var taskResult = mapper.Map<TaskViewModel, TaskDTO>(task);
-                dimsService.Edit(taskResult);
+                var taskResult = Mapper(task);
+                taskService.Edit(taskResult);
 
                 return RedirectToAction("Index");
             }
@@ -104,9 +112,9 @@ namespace HIMS.Server.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var taskDtos = dimsService.GetTask(id);
+            var taskDtos = taskService.GetTask(id);
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var taskResult = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
+            var taskResult = MapperForCRUD(taskDtos);
             if (taskResult == null)
             {
                 return HttpNotFound();
@@ -118,21 +126,11 @@ namespace HIMS.Server.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var taskDtos = dimsService.GetTask(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var taskResult = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
+            var taskDtos = taskService.GetTask(id);
+            var taskResult = MapperForCRUD(taskDtos);
 
-            dimsService.DeleteT(taskResult.TaskId);
+            taskService.Delete(taskResult.TaskId);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                dimsService.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

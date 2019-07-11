@@ -12,7 +12,7 @@ namespace HIMS.Tests
     {
         private TaskController taskController;
         private TaskViewModel taskViewModel;
-        private IDIMSService service;
+        private ITaskService service;
         
         public TaskControllerTest()
         {

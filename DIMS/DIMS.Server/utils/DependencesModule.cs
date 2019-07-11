@@ -13,7 +13,8 @@ namespace HIMS.Server.utils
         public override void Load()
         {
             Bind<IUserService>().To<UserService>();
-            Bind<IDIMSService>().To<DIMSService>();
+            Bind<ITaskService>().To<TaskService>();
+            Bind<IUserTrackService>().To<UserTrackService>();
         }
     }
 }
