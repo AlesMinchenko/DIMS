@@ -72,14 +72,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StubForRepositories\StubTaskRepository.cs" />
-    <Compile Include="StubForRepositories\StubUserTrackRepository.cs" />
+    <Compile Include="Stubs\StubTaskRepository.cs" />
+    <Compile Include="Stubs\StubUserTrackRepository.cs" />
     <Compile Include="TestSampleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestTaskRepository.cs" />
-    <Compile Include="TestTaskController.cs" />
-    <Compile Include="TestUserTrackController.cs" />
-    <Compile Include="UserTrackRepository.cs" />
+    <Compile Include="Tests\TestTaskController.cs" />
+    <Compile Include="Tests\TestTaskRepository.cs" />
+    <Compile Include="Tests\TestUserTrackRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

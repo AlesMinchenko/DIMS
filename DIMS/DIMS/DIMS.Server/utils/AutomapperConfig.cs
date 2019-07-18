@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using HIMS.BL.DTO;
 using HIMS.BL.Models;
 using HIMS.EF.DAL.Data;
 using HIMS.Server.Models;
@@ -18,6 +19,14 @@ namespace HIMS.Server.utils
                 cfg.CreateMap<Sample, SampleDTO>();
                 cfg.CreateMap<SampleDTO, Sample>();
                 cfg.CreateMap<SampleViewModel, SampleDTO>();
+                cfg.CreateMap<Task, TaskDTO>();
+                cfg.CreateMap<TaskDTO, Task>();
+                cfg.CreateMap<TaskViewModel, TaskDTO>();
+                cfg.CreateMap<TaskDTO, TaskViewModel>();
+                cfg.CreateMap<UserTrack, UserTrackDTO>();
+                cfg.CreateMap<UserTrackDTO, UserTrack>();
+                cfg.CreateMap<UserTrackViewModel, UserTrackDTO>();
+                cfg.CreateMap<UserTrackDTO, UserTrackViewModel>();
             });
         }
     }

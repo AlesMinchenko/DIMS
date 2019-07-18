@@ -13,42 +13,48 @@ namespace HIMS.Server.Controllers
 {
     public class TaskController : Controller
     {
-        IDIMSService dimsService;
-        public TaskController(IDIMSService serv)
+        ITaskService taskService;
+        public TaskController(ITaskService taskService)
         {
-            dimsService = serv;
+            this.taskService = taskService;
         }
+        #region Mappers
+        private TaskDTO MapperGetTasks(TaskViewModel taskViewModel)
+        {
+            return Mapper.Map<TaskViewModel, TaskDTO>(taskViewModel);
+
+        }
+        private TaskViewModel MapperForCRUD(TaskDTO taskDTO)
+        {
+            return Mapper.Map<TaskDTO, TaskViewModel>(taskDTO);
+
+        }
+        #endregion
         public ActionResult Index()
         {
-            ViewBag.MessageForTest = "MessageForTest";
-            IEnumerable <TaskDTO> taskDtos = dimsService.GetTasks();
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var tasks = mapper.Map<IEnumerable<TaskDTO>, List<TaskViewModel>>(taskDtos);
+            IEnumerable<TaskDTO> taskDtos = taskService.GetTasks();
+            var tasks = Mapper.Map<IEnumerable<TaskDTO>, List<TaskViewModel>>(taskDtos);
             return View("Index", tasks);
         }
-
         public ActionResult Details(int? id)
         {
             if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var __taskDtos = dimsService.GetTask(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var taskDtos = mapper.Map<TaskDTO, TaskViewModel>(__taskDtos);
+            var taskDtos = taskService.GetTask(id);
+            var taskResult = MapperForCRUD(taskDtos);
 
-            if (taskDtos == null)
+            if (taskResult == null)
             {
                 return HttpNotFound();
             }
-            return View(taskDtos);
+            return PartialView("Details", taskResult);
         }
 
         public ActionResult Create()
         {
-            ViewBag.MessageForTest = "MessageForTest";
-
-            return View("Index");
+            return View("Create");
         }
 
         [HttpPost]
@@ -57,10 +63,9 @@ namespace HIMS.Server.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskViewModel, TaskDTO>()).CreateMapper();
-                var _task = mapper.Map<TaskViewModel, TaskDTO>(task);
+                var taskResult = MapperGetTasks(task);
 
-                dimsService.CreateT(_task);
+                taskService.Create(taskResult);
                 return RedirectToAction("Index");
             }
 
@@ -74,16 +79,14 @@ namespace HIMS.Server.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var taskDtos = dimsService.GetTask(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var _taskDtos = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
+            var taskDtos = taskService.GetTask(id);
+            var taskResult = MapperForCRUD(taskDtos);
 
-
-            if (_taskDtos == null)
+            if (taskResult == null)
             {
                 return HttpNotFound();
             }
-            return View(_taskDtos);
+            return View(taskResult);
         }
 
         [HttpPost]
@@ -92,9 +95,8 @@ namespace HIMS.Server.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskViewModel, TaskDTO>()).CreateMapper();
-                var _taskDtos = mapper.Map<TaskViewModel, TaskDTO>(task);
-                dimsService.Edit(_taskDtos);
+                var taskResult = MapperGetTasks(task);
+                taskService.Edit(taskResult);
 
                 return RedirectToAction("Index");
             }
@@ -107,35 +109,24 @@ namespace HIMS.Server.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var taskDtos = dimsService.GetTask(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var _taskDtos = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
-            if (_taskDtos == null)
+            var taskDtos = taskService.GetTask(id);
+            var taskResult = MapperForCRUD(taskDtos);
+            if (taskResult == null)
             {
                 return HttpNotFound();
             }
-            return View(_taskDtos);
+            return View(taskResult);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var taskDtos = dimsService.GetTask(id);
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<TaskDTO, TaskViewModel>()).CreateMapper();
-            var _taskDtos = mapper.Map<TaskDTO, TaskViewModel>(taskDtos);
+            var taskDtos = taskService.GetTask(id);
+            var taskResult = MapperForCRUD(taskDtos);
 
-            dimsService.DeleteT(_taskDtos.TaskId);
+            taskService.Delete(taskResult.TaskId);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                dimsService.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

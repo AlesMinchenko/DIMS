@@ -1,0 +1,65 @@
+﻿@model HIMS.Server.Models.TaskViewModel
+
+@{
+    ViewBag.Title = "Deleting tasks";
+}
+<p>
+    <h2>Tasks deleting</h2>
+</p>
+
+<h3>Are you sure you want to delete this task?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeadlineDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeadlineDate)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
