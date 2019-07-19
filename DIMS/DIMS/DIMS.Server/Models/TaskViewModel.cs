@@ -14,7 +14,7 @@ namespace HIMS.Server.Models
         [StringLength(10, ErrorMessage = "Name should not have more than 10 symbols", MinimumLength = 3)]
         public string Name { get; set; }
         [Required]
-        [StringLength(10, ErrorMessage = "Description should have no less than 3 symbols and no more than 10 ", MinimumLength = 3)]
+        [StringLength(250, ErrorMessage = "Description should have no less than 3 symbols and no more than 10 ", MinimumLength = 3)]
         public string Description { get; set; }
         [Required]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

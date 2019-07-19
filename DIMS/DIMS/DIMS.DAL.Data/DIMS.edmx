@@ -31,9 +31,9 @@
           <Key>
             <PropertyRef Name="TaskId" />
           </Key>
-          <Property Name="TaskId" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="Description" Type="nchar" MaxLength="10" />
+          <Property Name="TaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nchar" MaxLength="250" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="DeadlineDate" Type="datetime" Nullable="false" />
         </EntityType>
@@ -76,15 +76,15 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TaskId" Type="int" Nullable="false" />
           <Property Name="TaskTrackId" Type="int" Nullable="false" />
-          <Property Name="TaskName" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="TrackNote" Type="nchar" MaxLength="20" />
+          <Property Name="TaskName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="TrackNote" Type="nchar" MaxLength="250" />
           <Property Name="TrackDate" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "F:\DIMSPROJECT\DIMS\DIMS.DAL.DATA\MSSQLLOCALDBDIMS_PRIMARY.MDF.dbo.vTask" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "F:\DIMSPROJECT\DIMS\DIMS\DIMS.SERVER\APP_DATA\MSSQLLOCALDBDIMS_PRIMARY.MDF.dbo.vTask" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="vTask">
           <Key>
             <PropertyRef Name="TaskId" />
@@ -94,12 +94,12 @@
           </Key>
           <Property Name="TaskId" Type="int" Nullable="false" />
           <Property Name="DeadlineDate" Type="datetime" Nullable="false" />
-          <Property Name="Description" Type="nchar" MaxLength="10" />
-          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="Description" Type="nchar" MaxLength="250" />
+          <Property Name="Name" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "F:\DIMSPROJECT\DIMS\DIMS.DAL.DATA\MSSQLLOCALDBDIMS_PRIMARY.MDF.dbo.vUserProfile" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "F:\DIMSPROJECT\DIMS\DIMS\DIMS.SERVER\APP_DATA\MSSQLLOCALDBDIMS_PRIMARY.MDF.dbo.vUserProfile" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="vUserProfile">
           <Key>
             <PropertyRef Name="UserId" />
@@ -127,7 +127,7 @@
           <Property Name="StartDate" Type="date" Nullable="false" />
         </EntityType>
         <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "F:\DIMSPROJECT\DIMS\DIMS.DAL.DATA\MSSQLLOCALDBDIMS_PRIMARY.MDF.dbo.vUserTrack" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+предупреждение 6002: В таблице или представлении "F:\DIMSPROJECT\DIMS\DIMS\DIMS.SERVER\APP_DATA\MSSQLLOCALDBDIMS_PRIMARY.MDF.dbo.vUserTrack" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="vUserTrack">
           <Key>
             <PropertyRef Name="UserId" />
@@ -138,12 +138,12 @@
           </Key>
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="TaskId" Type="int" Nullable="false" />
-          <Property Name="TaskName" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="TaskName" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="TaskTrackId" Type="int" Nullable="false" />
-          <Property Name="TrackNote" Type="nchar" MaxLength="20" />
+          <Property Name="TrackNote" Type="nchar" MaxLength="250" />
           <Property Name="TrackDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__UserTrack__TaskI__30F848ED">
+        <Association Name="FK__UserTrack__TaskI__71D1E811">
           <End Role="Task" Type="Self.Task" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -157,7 +157,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrack__TaskT__31EC6D26">
+        <Association Name="FK__UserTrack__TaskT__72C60C4A">
           <End Role="TaskTrack" Type="Self.TaskTrack" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -251,11 +251,11 @@
     [vUserTrack].[TrackDate] AS [TrackDate]
     FROM [dbo].[vUserTrack] AS [vUserTrack]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__UserTrack__TaskI__30F848ED" Association="Self.FK__UserTrack__TaskI__30F848ED">
+          <AssociationSet Name="FK__UserTrack__TaskI__71D1E811" Association="Self.FK__UserTrack__TaskI__71D1E811">
             <End Role="Task" EntitySet="Task" />
             <End Role="UserTrack" EntitySet="UserTrack" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrack__TaskT__31EC6D26" Association="Self.FK__UserTrack__TaskT__31EC6D26">
+          <AssociationSet Name="FK__UserTrack__TaskT__72C60C4A" Association="Self.FK__UserTrack__TaskT__72C60C4A">
             <End Role="TaskTrack" EntitySet="TaskTrack" />
             <End Role="UserTrack" EntitySet="UserTrack" />
           </AssociationSet>
@@ -300,12 +300,12 @@
           <Key>
             <PropertyRef Name="TaskId" />
           </Key>
-          <Property Name="TaskId" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DeadlineDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="UserTracks" Relationship="Self.FK__UserTrack__TaskI__30F848ED" FromRole="Task" ToRole="UserTrack" />
+          <NavigationProperty Name="UserTracks" Relationship="Self.FK__UserTrack__TaskI__71D1E811" FromRole="Task" ToRole="UserTrack" />
         </EntityType>
         <EntityType Name="TaskTrack">
           <Key>
@@ -313,7 +313,7 @@
           </Key>
           <Property Name="TaskTrackId" Type="Int32" Nullable="false" />
           <Property Name="Age" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UserTracks" Relationship="Self.FK__UserTrack__TaskT__31EC6D26" FromRole="TaskTrack" ToRole="UserTrack" />
+          <NavigationProperty Name="UserTracks" Relationship="Self.FK__UserTrack__TaskT__72C60C4A" FromRole="TaskTrack" ToRole="UserTrack" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -350,14 +350,14 @@
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TaskId" Type="Int32" Nullable="false" />
           <Property Name="TaskTrackId" Type="Int32" Nullable="false" />
-          <Property Name="TaskName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="TrackNote" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="TaskName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TrackNote" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <Property Name="TrackDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Task" Relationship="Self.FK__UserTrack__TaskI__30F848ED" FromRole="UserTrack" ToRole="Task" />
-          <NavigationProperty Name="TaskTrack" Relationship="Self.FK__UserTrack__TaskT__31EC6D26" FromRole="UserTrack" ToRole="TaskTrack" />
+          <NavigationProperty Name="Task" Relationship="Self.FK__UserTrack__TaskI__71D1E811" FromRole="UserTrack" ToRole="Task" />
+          <NavigationProperty Name="TaskTrack" Relationship="Self.FK__UserTrack__TaskT__72C60C4A" FromRole="UserTrack" ToRole="TaskTrack" />
         </EntityType>
         <EntityType Name="vTask">
           <Key>
@@ -368,8 +368,8 @@
           </Key>
           <Property Name="TaskId" Type="Int32" Nullable="false" />
           <Property Name="DeadlineDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="vUserProfile">
@@ -408,9 +408,9 @@
           </Key>
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="TaskId" Type="Int32" Nullable="false" />
-          <Property Name="TaskName" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TaskName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="TaskTrackId" Type="Int32" Nullable="false" />
-          <Property Name="TrackNote" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="TrackNote" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <Property Name="TrackDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <Association Name="FK_Direction_To_UserProfile">
@@ -427,7 +427,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrack__TaskI__30F848ED">
+        <Association Name="FK__UserTrack__TaskI__71D1E811">
           <End Role="Task" Type="Self.Task" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -441,7 +441,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrack__TaskT__31EC6D26">
+        <Association Name="FK__UserTrack__TaskT__72C60C4A">
           <End Role="TaskTrack" Type="Self.TaskTrack" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -485,11 +485,11 @@
             <End Role="Direction" EntitySet="Directions" />
             <End Role="UserProfile" EntitySet="UserProfiles" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrack__TaskI__30F848ED" Association="Self.FK__UserTrack__TaskI__30F848ED">
+          <AssociationSet Name="FK__UserTrack__TaskI__71D1E811" Association="Self.FK__UserTrack__TaskI__71D1E811">
             <End Role="Task" EntitySet="Tasks" />
             <End Role="UserTrack" EntitySet="UserTracks" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrack__TaskT__31EC6D26" Association="Self.FK__UserTrack__TaskT__31EC6D26">
+          <AssociationSet Name="FK__UserTrack__TaskT__72C60C4A" Association="Self.FK__UserTrack__TaskT__72C60C4A">
             <End Role="TaskTrack" EntitySet="TaskTracks" />
             <End Role="UserTrack" EntitySet="UserTracks" />
           </AssociationSet>
