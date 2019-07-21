@@ -26,6 +26,12 @@ namespace HIMS.Tests.Tests
             Assert.IsNotNull(task);
         }
         [TestMethod]
+        public void Get_TaskFromRepository_IsNull()
+        {
+            var task = stubTaskRepository.Get(5);
+            Assert.IsNull(task);
+        }
+        [TestMethod]
         public void Get_TaskNameFromRepository_AreEqual()
         {
             var task = stubTaskRepository.Get(3);
@@ -33,11 +39,25 @@ namespace HIMS.Tests.Tests
             Assert.AreEqual("Name12", task.Name);
         }
         [TestMethod]
+        public void Get_TaskNameFromRepository_AreNotEqual()
+        {
+            var task = stubTaskRepository.Get(3);
+
+            Assert.AreNotEqual("SomeName", task.Name);
+        }
+        [TestMethod]
         public void Get_AllTasksFromRepository_IsNotNull()
         {
             var task = stubTaskRepository.GetAll();
 
             Assert.IsNotNull(task);
+        }
+        [TestMethod]
+        public void Get_AllTasksFromRepository_IsNull()
+        {
+            var task = stubTaskRepository.GetAll();
+
+            Assert.IsNull(task);
         }
         [TestMethod]
         public void Create_TasksFromRepository()
@@ -58,17 +78,31 @@ namespace HIMS.Tests.Tests
 
         }
         [TestMethod]
-        public void Count_TasksFromRepository()
+        public void Count_TasksFromRepository_AreEqual()
         {
             Assert.AreEqual(2, stubTaskRepository.GetAll().Count());
 
         }
         [TestMethod]
-        public void Delete_TasksFromRepository()
+        public void Count_TasksFromRepository_AreNotEqual()
+        {
+            Assert.AreNotEqual(3, stubTaskRepository.GetAll().Count());
+
+        }
+        [TestMethod]
+        public void Delete_TasksFromRepository_AreEqual()
         {
             stubTaskRepository.Delete(1);
 
             Assert.AreEqual(null, stubTaskRepository.Get(1));
+
+        }
+        [TestMethod]
+        public void Delete_TasksFromRepository_AreNotEqual()
+        {
+            stubTaskRepository.Delete(2);
+
+            Assert.AreNotEqual(null, stubTaskRepository.Get(1));
 
         }
         [TestMethod]

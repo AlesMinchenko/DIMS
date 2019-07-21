@@ -218,6 +218,10 @@
     <Content Include="Views\Task\Create.cshtml" />
     <Content Include="Views\Task\Edit.cshtml" />
     <Content Include="Views\Task\Delete.cshtml" />
+    <Content Include="Views\UserTrack\Details.cshtml" />
+    <Content Include="Views\UserTrack\Create.cshtml" />
+    <Content Include="Views\UserTrack\Edit.cshtml" />
+    <Content Include="Views\UserTrack\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

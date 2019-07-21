@@ -11,7 +11,7 @@ namespace HIMS.Server.Models
         public int TaskId { get; set; }
         [Required]
         [Display(Name = "Task's name")]
-        [StringLength(10, ErrorMessage = "Name should not have more than 10 symbols", MinimumLength = 3)]
+        [StringLength(50, ErrorMessage = "Name should have no less 3 symbols and no more than 50 symbols", MinimumLength = 3)]
         public string Name { get; set; }
         [Required]
         [StringLength(250, ErrorMessage = "Description should have no less than 3 symbols and no more than 10 ", MinimumLength = 3)]

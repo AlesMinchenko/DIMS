@@ -51,7 +51,7 @@ namespace HIMS.Server.Controllers
             }
             return PartialView("Details", taskResult);
         }
-
+        [HttpGet]
         public ActionResult Create()
         {
             return View("Create");
@@ -71,7 +71,7 @@ namespace HIMS.Server.Controllers
 
             return View(task);
         }
-
+        [HttpGet]
         public ActionResult Edit(int id)
         {
             if (id == 0)
@@ -86,7 +86,7 @@ namespace HIMS.Server.Controllers
             {
                 return HttpNotFound();
             }
-            return View(taskResult);
+            return View("Edit", taskResult);
         }
 
         [HttpPost]

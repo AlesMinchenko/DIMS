@@ -12,10 +12,10 @@ namespace HIMS.Server.Models
         public int TaskId { get; set; }
         public int TaskTrackId { get; set; }
         [Required]
-        [StringLength(10, ErrorMessage = "Name should contain no more than 10 symbols", MinimumLength = 3)]
+        [StringLength(50, ErrorMessage = "Name should contain no less 3 and no more than 50 symbols", MinimumLength = 3)]
         public string TaskName { get; set; }
         [Required]
-        [StringLength(20, ErrorMessage = "Note should contain no more than 20 symbols", MinimumLength = 5)]
+        [StringLength(250, ErrorMessage = "Note should contain no less 3 and no more than 250 symbols", MinimumLength = 5)]
         public string TrackNote { get; set; }
         [Required]
         [DataType(DataType.Date)]

@@ -33,8 +33,8 @@ namespace HIMS.Tests.Tests
         [TestMethod]
         public void Get_NameViewResult_AreEqual()
         {
-            ViewResult result = taskController.Index() as ViewResult;
-            Assert.AreEqual("Index", result.ViewName);
+            ViewResult result = taskController.Edit(1) as ViewResult;
+            Assert.AreEqual("Edit", result.ViewName);
         }
         [TestMethod]
         public void Get_NameViewResultFromCreate_AreEqual()
