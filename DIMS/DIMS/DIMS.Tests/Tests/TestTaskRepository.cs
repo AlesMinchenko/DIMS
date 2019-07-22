@@ -1,7 +1,7 @@
 ﻿using HIMS.EF.DAL.Data;
 using HIMS.Server.Models;
 using HIMS.Tests.Stubs;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text;
 
 namespace HIMS.Tests.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class TestTaskRepository
     {
         private StubTaskRepository stubTaskRepository;
@@ -19,47 +19,47 @@ namespace HIMS.Tests.Tests
             stubTaskRepository = new StubTaskRepository();
             task = new Task();
         }
-        [TestMethod]
+        [Test]
         public void Get_TaskFromRepository_IsNotNull()
         {
             var task = stubTaskRepository.Get(1);
             Assert.IsNotNull(task);
         }
-        [TestMethod]
+        [Test]
         public void Get_TaskFromRepository_IsNull()
         {
             var task = stubTaskRepository.Get(5);
             Assert.IsNull(task);
         }
-        [TestMethod]
+        [Test]
         public void Get_TaskNameFromRepository_AreEqual()
         {
             var task = stubTaskRepository.Get(3);
 
             Assert.AreEqual("Name12", task.Name);
         }
-        [TestMethod]
+        [Test]
         public void Get_TaskNameFromRepository_AreNotEqual()
         {
             var task = stubTaskRepository.Get(3);
 
             Assert.AreNotEqual("SomeName", task.Name);
         }
-        [TestMethod]
+        [Test]
         public void Get_AllTasksFromRepository_IsNotNull()
         {
             var task = stubTaskRepository.GetAll();
 
             Assert.IsNotNull(task);
         }
-        [TestMethod]
+        [Test]
         public void Get_AllTasksFromRepository_IsNull()
         {
             var task = stubTaskRepository.GetAll();
 
             Assert.IsNull(task);
         }
-        [TestMethod]
+        [Test]
         public void Create_TasksFromRepository()
         {
             var expected = new Task()
@@ -77,19 +77,19 @@ namespace HIMS.Tests.Tests
             Assert.AreEqual(expected, result);
 
         }
-        [TestMethod]
+        [Test]
         public void Count_TasksFromRepository_AreEqual()
         {
             Assert.AreEqual(2, stubTaskRepository.GetAll().Count());
 
         }
-        [TestMethod]
+        [Test]
         public void Count_TasksFromRepository_AreNotEqual()
         {
             Assert.AreNotEqual(3, stubTaskRepository.GetAll().Count());
 
         }
-        [TestMethod]
+        [Test]
         public void Delete_TasksFromRepository_AreEqual()
         {
             stubTaskRepository.Delete(1);
@@ -97,7 +97,7 @@ namespace HIMS.Tests.Tests
             Assert.AreEqual(null, stubTaskRepository.Get(1));
 
         }
-        [TestMethod]
+        [Test]
         public void Delete_TasksFromRepository_AreNotEqual()
         {
             stubTaskRepository.Delete(2);
@@ -105,7 +105,7 @@ namespace HIMS.Tests.Tests
             Assert.AreNotEqual(null, stubTaskRepository.Get(1));
 
         }
-        [TestMethod]
+        [Test]
         public void Update_TasksFromRepository()
         {
             var expected = new Task()

@@ -1,17 +1,13 @@
 ﻿using HIMS.BL.Interfaces;
 using HIMS.Server.Controllers;
 using HIMS.Server.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
+using NUnit.Framework;
 
 namespace HIMS.Tests.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class TaskControllerTest
     {
         private TaskController taskController;
@@ -24,25 +20,25 @@ namespace HIMS.Tests.Tests
             taskViewModel = new TaskViewModel();
 
         }
-        [TestMethod]
+        [Test]
         public void ShowTaskViewResultNotNull()
         {
             ActionResult result = taskController.Index();
             Assert.IsNotNull(result);
         }
-        [TestMethod]
+        [Test]
         public void Get_NameViewResult_AreEqual()
         {
             ViewResult result = taskController.Edit(1) as ViewResult;
             Assert.AreEqual("Edit", result.ViewName);
         }
-        [TestMethod]
+        [Test]
         public void Get_NameViewResultFromCreate_AreEqual()
         {
             ViewResult result = taskController.Create() as ViewResult;
             Assert.AreEqual("Create", result.ViewName);
         }
-        [TestMethod]
+        [Test]
         public void ShowTaskViewResultNotNull_FromCreate()
         {
             ActionResult result = taskController.Create(taskViewModel);

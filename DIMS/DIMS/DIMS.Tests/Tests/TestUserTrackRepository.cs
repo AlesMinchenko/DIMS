@@ -1,6 +1,6 @@
 ﻿using HIMS.EF.DAL.Data;
 using HIMS.Tests.Stubs;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HIMS.Tests.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class TestUserTrackRepository
     {
         private StubUserTrackRepository stubUserTrackRepository;
@@ -19,39 +19,39 @@ namespace HIMS.Tests.Tests
             stubUserTrackRepository = new StubUserTrackRepository();
             userTrack = new UserTrack();
         }
-        [TestMethod]
+        [Test]
         public void Get_UserTrackFromRepository_IsNotNull()
         {
             var task = stubUserTrackRepository.Get(1);
             Assert.IsNotNull(task);
         }
-        [TestMethod]
+        [Test]
         public void Get_UserTrackFromRepository_IsNull()
         {
             var task = stubUserTrackRepository.Get(11);
             Assert.IsNull(task);
         }
-        [TestMethod]
+        [Test]
         public void GetDate_UserTrackFromRepository_AreEqual()
         {
             var task = stubUserTrackRepository.Get(1);
             var date = new DateTime(2019, 11, 12);
             Assert.AreEqual(date.Date, task.TrackDate);
         }
-        [TestMethod]
+        [Test]
         public void GetDate_UserTrackFromRepository_AreNotEqual()
         {
             var task = stubUserTrackRepository.Get(1);
             var date = new DateTime(1019, 11, 12);
             Assert.AreNotEqual(date.Date, task.TrackDate);
         }
-        [TestMethod]
+        [Test]
         public void Get_AllUserTrackFromRepository()
         {
 
             Assert.IsNotNull(stubUserTrackRepository.GetAll());
         }
-        [TestMethod]
+        [Test]
         public void Create_UserTrackFromRepository_IsNotNull()
         {
             var result = new UserTrack()
@@ -72,7 +72,7 @@ namespace HIMS.Tests.Tests
             Assert.IsNotNull(stubUserTrackRepository.Get(3));
         }
 
-        [TestMethod]
+        [Test]
         public void UpDate_UserTrackFromRepository_AreEqual()
         {
             var userTrackUpDate = stubUserTrackRepository.Get(1);
@@ -81,7 +81,7 @@ namespace HIMS.Tests.Tests
 
             Assert.AreEqual("FooName", stubUserTrackRepository.Get(1).TaskName);
         }
-        [TestMethod]
+        [Test]
         public void UpDate_UserTrackFromRepository_AreNotEqual()
         {
             var userTrackUpDate = stubUserTrackRepository.Get(1);
@@ -90,21 +90,21 @@ namespace HIMS.Tests.Tests
 
             Assert.AreNotEqual("FooName_2", stubUserTrackRepository.Get(1).TaskName);
         }
-        [TestMethod]
+        [Test]
         public void Delete_UserTrackFromRepository()
         {
             stubUserTrackRepository.Delete(1);
 
             Assert.IsNull(stubUserTrackRepository.Get(1));
         }
-        [TestMethod]
+        [Test]
         public void Delete_UserTrackFromRepository_IsNotNull()
         {
             stubUserTrackRepository.Delete(1);
 
             Assert.IsNotNull(stubUserTrackRepository.Get(2));
         }
-        [TestMethod]
+        [Test]
         public void CountItem_UserTrackFromRepository_AreEqual()
         {
             var stubUserTrackForTest = new UserTrack()
@@ -122,7 +122,7 @@ namespace HIMS.Tests.Tests
 
             Assert.AreEqual(3, stubUserTrackRepository.GetAll().Count());
         }
-        [TestMethod]
+        [Test]
         public void CountItem_UserTrackFromRepository_AreNotEqual()
         {
             var stubUserTrackForTest = new UserTrack()
