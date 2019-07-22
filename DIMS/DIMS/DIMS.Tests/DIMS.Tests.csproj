@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Stubs\StubTaskRepository.cs" />
+    <Compile Include="Stubs\StubTaskService.cs" />
     <Compile Include="Stubs\StubUserTrackRepository.cs" />
     <Compile Include="TestSampleController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

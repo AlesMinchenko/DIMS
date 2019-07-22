@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<HIMS.Server.Models.UserTrackViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "UserTrack's list";
 }
 <body>
     <div id="modDialog" class="modal fade">
         <div id="dialogContent" class="modal-dialog"></div>
     </div>
-    <h2>Task list</h2>
+    <h2>UserTrack list</h2>
     <hr />
     <p>
-        @Html.ActionLink("Create New", "Create", null, new { @class = "taskCreate" })
+        @Html.ActionLink("Create New UserTrack", "Create", null, new { @class = "TrackCreate" })
     </p>
     <table class="table">
         <tr>
@@ -57,8 +57,8 @@
                     @Html.DisplayFor(modelItem => item.TrackDate)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "editTask" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "taskItem" }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class = "editTrack" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.UserId }, new { @class = "TrackItem" }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
                 </td>
             </tr>
@@ -71,7 +71,7 @@
 
         $(function () {
             $.ajaxSetup({ cache: false });
-            $(".editTask").click(function (e) {
+            $(".editTrack").click(function (e) {
 
                 e.preventDefault();
                 $.get(this.href, function (data) {
@@ -80,7 +80,7 @@
                 });
             });
             $.ajaxSetup({ cache: false });
-            $(".taskCreate").click(function (e) {
+            $(".TrackCreate").click(function (e) {
 
                 e.preventDefault();
                 $.get(this.href, function (data) {
@@ -88,7 +88,7 @@
                     $('#modDialog').modal('show');
                 });
             });
-            $(".taskItem").click(function (e) {
+            $(".TrackItem").click(function (e) {
 
                 e.preventDefault();
                 $.get(this.href, function (data) {
