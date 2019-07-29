@@ -28,7 +28,9 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.TaskTrackId, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-5">
-                    @Html.EditorFor(model => model.TaskTrackId, new { htmlAttributes = new { @class = "form-control", required = "Info" } })
+                    @*@Html.EditorFor(model => model.TaskTrackId, new { htmlAttributes = new { @class = "form-control", required = "Info" } })*@
+                    @Html.DropDownList("taskTrack", null, "Tasks", htmlAttributes: new { @class = "form-control" })
+
                     @Html.ValidationMessageFor(model => model.TaskTrackId, "", new { @class = "text-danger" })
                 </div>
             </div>
