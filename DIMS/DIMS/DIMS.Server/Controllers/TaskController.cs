@@ -18,6 +18,7 @@ namespace HIMS.Server.Controllers
         {
             this.taskService = taskService;
         }
+
         #region Mappers
         private TaskDTO MapperGetTasks(TaskViewModel taskViewModel)
         {
@@ -30,6 +31,7 @@ namespace HIMS.Server.Controllers
 
         }
         #endregion
+
         public ActionResult Index()
         {
             IEnumerable<TaskDTO> taskDtos = taskService.GetTasks();

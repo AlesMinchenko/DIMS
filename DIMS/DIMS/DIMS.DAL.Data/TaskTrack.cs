@@ -21,8 +21,11 @@ namespace HIMS.EF.DAL.Data
         }
     
         public int TaskTrackId { get; set; }
-        public int Age { get; set; }
+        public int UserTaskId { get; set; }
+        public System.DateTime TrackDate { get; set; }
+        public string TrackNote { get; set; }
     
+        public virtual UserTask UserTask { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserTrack> UserTracks { get; set; }
     }

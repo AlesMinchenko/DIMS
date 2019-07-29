@@ -3,6 +3,9 @@ using HIMS.Server.Controllers;
 using HIMS.Server.Models;
 using System;
 using System.Web.Mvc;
+using HIMS.BL.Services;
+using HIMS.EF.DAL.Data;
+using HIMS.EF.DAL.Data.Repositories;
 using NUnit.Framework;
 
 namespace HIMS.Tests.Tests
@@ -13,11 +16,17 @@ namespace HIMS.Tests.Tests
         private TaskController taskController;
         private TaskViewModel taskViewModel;
         private ITaskService service;
-
         public TaskControllerTest()
         {
+
+        }
+        [SetUp]
+        public void SetUp()
+        {
+            var iow = new EFUnitOfWork();
+            service = new TaskService(iow);
             taskController = new TaskController(service);
-            taskViewModel = new TaskViewModel();
+            taskViewModel = new TaskViewModel() { TaskId = 1, DeadlineDate = new DateTime(2019, 5, 11), Description = "Some description", Name = "Some name", StartDate = new DateTime(2019, 6, 10) };
 
         }
         [Test]

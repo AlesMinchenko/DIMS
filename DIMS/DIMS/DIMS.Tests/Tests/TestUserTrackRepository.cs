@@ -14,10 +14,13 @@ namespace HIMS.Tests.Tests
     {
         private StubUserTrackRepository stubUserTrackRepository;
         private UserTrack userTrack;
-        public TestUserTrackRepository()
+
+        [SetUp]
+        public void SetUp()
         {
             stubUserTrackRepository = new StubUserTrackRepository();
             userTrack = new UserTrack();
+
         }
         [Test]
         public void Get_UserTrackFromRepository_IsNotNull()

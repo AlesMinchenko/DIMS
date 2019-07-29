@@ -1,9 +1,10 @@
 ﻿@model HIMS.Server.Models.TaskViewModel
 
 @{
-    ViewBag.Title = "Creating task";
     Layout = null;
 }
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
 <div class="modal-content">
     <div class="modal-header">
         <button class="close" data-dismiss="modal" area-hidden="true">X</button>
@@ -14,14 +15,11 @@
     {
         @Html.AntiForgeryToken()
 
-        <div class="form-horizontal col-xs-12 col-md-offset-2">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
+        <div style="margin-top:10px" class="form-horizontal col-xs-12 col-md-offset-2">
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-5">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "Info" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "" } })
                 </div>
             </div>
 
@@ -29,7 +27,6 @@
                 @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-5">
                     @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", required = "Info" } })
-                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -37,7 +34,6 @@
                 @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-5">
                     @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control", required = "Info" } })
-                    @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -45,10 +41,9 @@
                 @Html.LabelFor(model => model.DeadlineDate, htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-5">
                     @Html.EditorFor(model => model.DeadlineDate, new { htmlAttributes = new { @class = "form-control", required = "Info" } })
-                    @Html.ValidationMessageFor(model => model.DeadlineDate, "", new { @class = "text-danger" })
                 </div>
             </div>
-            @Html.ValidationSummary()
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
             <div class="form-group">
                 <div class="col-md-offset-3 col-md-10">
                     <input type="submit" value="Save" class="btn btn-default" />
@@ -57,6 +52,3 @@
         </div>
     }
 </div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

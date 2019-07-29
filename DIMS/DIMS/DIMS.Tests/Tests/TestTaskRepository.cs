@@ -13,8 +13,9 @@ namespace HIMS.Tests.Tests
     public class TestTaskRepository
     {
         private StubTaskRepository stubTaskRepository;
-        readonly Task task;
-        public TestTaskRepository()
+        private Task task;
+        [SetUp]
+        public void SetUp()
         {
             stubTaskRepository = new StubTaskRepository();
             task = new Task();

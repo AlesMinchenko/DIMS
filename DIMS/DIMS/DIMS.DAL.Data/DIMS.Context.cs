@@ -31,6 +31,7 @@ namespace HIMS.EF.DAL.Data
         public virtual DbSet<Direction> Directions { get; set; }
         public virtual DbSet<Sample> Samples { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
+        public virtual DbSet<TaskState> TaskStates { get; set; }
         public virtual DbSet<TaskTrack> TaskTracks { get; set; }
         public virtual DbSet<UserProfile> UserProfiles { get; set; }
         public virtual DbSet<UserTask> UserTasks { get; set; }

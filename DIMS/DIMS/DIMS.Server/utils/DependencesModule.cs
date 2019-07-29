@@ -1,5 +1,6 @@
 ﻿using HIMS.BL.Interfaces;
 using HIMS.BL.Services;
+using HIMS.EF.DAL.Data;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace HIMS.Server.utils
             Bind<IUserService>().To<UserService>();
             Bind<ITaskService>().To<TaskService>();
             Bind<IUserTrackService>().To<UserTrackService>();
+            Bind<ITaskTrackService>().To<TaskTrackService>();
         }
     }
 }

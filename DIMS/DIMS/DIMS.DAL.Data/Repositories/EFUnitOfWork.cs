@@ -12,12 +12,21 @@ namespace HIMS.EF.DAL.Data.Repositories
         private TaskRepository taskRepository;
         private UserTrackRepository userTrackRepository;
         private SampleRepository sampleRepository;
+        private TaskTrackRepository taskTrackRepository;
 
         public EFUnitOfWork()
         {
             db = new DIMSContext();
         }
-
+        public IRepository<TaskTrack> TaskTracks
+        {
+            get
+            {
+                if (taskTrackRepository == null)
+                    taskTrackRepository = new TaskTrackRepository(db);
+                return taskTrackRepository;
+            }
+        }
         public IRepository<Task> Tasks
         {
             get

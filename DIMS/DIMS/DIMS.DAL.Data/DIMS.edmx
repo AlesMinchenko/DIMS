@@ -37,12 +37,21 @@
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="DeadlineDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="TaskState">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateName" Type="nchar" MaxLength="1" Nullable="false" />
+        </EntityType>
         <EntityType Name="TaskTrack">
           <Key>
             <PropertyRef Name="TaskTrackId" />
           </Key>
-          <Property Name="TaskTrackId" Type="int" Nullable="false" />
-          <Property Name="Age" Type="int" Nullable="false" />
+          <Property Name="TaskTrackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserTaskId" Type="int" Nullable="false" />
+          <Property Name="TrackDate" Type="datetime" Nullable="false" />
+          <Property Name="TrackNote" Type="nchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -143,6 +152,60 @@
           <Property Name="TrackNote" Type="nchar" MaxLength="250" />
           <Property Name="TrackDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <Association Name="FK__TaskTrack__UserT__05D8E0BE">
+          <End Role="UserTask" Type="Self.UserTask" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskTrack" Type="Self.TaskTrack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTask">
+              <PropertyRef Name="UserTaskId" />
+            </Principal>
+            <Dependent Role="TaskTrack">
+              <PropertyRef Name="UserTaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserTask__StateI__0D7A0286">
+          <End Role="TaskState" Type="Self.TaskState" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserTask" Type="Self.UserTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskState">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="UserTask">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserTask__TaskId__0B91BA14">
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="UserTask" Type="Self.UserTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="TaskId" />
+            </Principal>
+            <Dependent Role="UserTask">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserTask__UserId__0C85DE4D">
+          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserTask" Type="Self.UserTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UserTask">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__UserTrack__TaskI__71D1E811">
           <End Role="Task" Type="Self.Task" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -157,7 +220,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrack__TaskT__72C60C4A">
+        <Association Name="FK__UserTrack__TaskT__04E4BC85">
           <End Role="TaskTrack" Type="Self.TaskTrack" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -185,20 +248,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserTask_To_UserProfile">
-          <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="UserTask" Type="Self.UserTask" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserProfile">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UserTask">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="DeleteTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="taskid" Type="int" Mode="In" />
         </Function>
@@ -211,6 +260,7 @@
           <EntitySet Name="Direction" EntityType="Self.Direction" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Sample" EntityType="Self.Sample" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TaskState" EntityType="Self.TaskState" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskTrack" EntityType="Self.TaskTrack" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserProfile" EntityType="Self.UserProfile" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserTask" EntityType="Self.UserTask" Schema="dbo" store:Type="Tables" />
@@ -251,21 +301,33 @@
     [vUserTrack].[TrackDate] AS [TrackDate]
     FROM [dbo].[vUserTrack] AS [vUserTrack]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK__TaskTrack__UserT__05D8E0BE" Association="Self.FK__TaskTrack__UserT__05D8E0BE">
+            <End Role="UserTask" EntitySet="UserTask" />
+            <End Role="TaskTrack" EntitySet="TaskTrack" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserTask__StateI__0D7A0286" Association="Self.FK__UserTask__StateI__0D7A0286">
+            <End Role="TaskState" EntitySet="TaskState" />
+            <End Role="UserTask" EntitySet="UserTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserTask__TaskId__0B91BA14" Association="Self.FK__UserTask__TaskId__0B91BA14">
+            <End Role="Task" EntitySet="Task" />
+            <End Role="UserTask" EntitySet="UserTask" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserTask__UserId__0C85DE4D" Association="Self.FK__UserTask__UserId__0C85DE4D">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="UserTask" EntitySet="UserTask" />
+          </AssociationSet>
           <AssociationSet Name="FK__UserTrack__TaskI__71D1E811" Association="Self.FK__UserTrack__TaskI__71D1E811">
             <End Role="Task" EntitySet="Task" />
             <End Role="UserTrack" EntitySet="UserTrack" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrack__TaskT__72C60C4A" Association="Self.FK__UserTrack__TaskT__72C60C4A">
+          <AssociationSet Name="FK__UserTrack__TaskT__04E4BC85" Association="Self.FK__UserTrack__TaskT__04E4BC85">
             <End Role="TaskTrack" EntitySet="TaskTrack" />
             <End Role="UserTrack" EntitySet="UserTrack" />
           </AssociationSet>
           <AssociationSet Name="FK_Direction_To_UserProfile" Association="Self.FK_Direction_To_UserProfile">
             <End Role="Direction" EntitySet="Direction" />
             <End Role="UserProfile" EntitySet="UserProfile" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserTask_To_UserProfile" Association="Self.FK_UserTask_To_UserProfile">
-            <End Role="UserProfile" EntitySet="UserProfile" />
-            <End Role="UserTask" EntitySet="UserTask" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -305,15 +367,27 @@
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DeadlineDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserTasks" Relationship="Self.FK__UserTask__TaskId__0B91BA14" FromRole="Task" ToRole="UserTask" />
           <NavigationProperty Name="UserTracks" Relationship="Self.FK__UserTrack__TaskI__71D1E811" FromRole="Task" ToRole="UserTrack" />
+        </EntityType>
+        <EntityType Name="TaskState">
+          <Key>
+            <PropertyRef Name="StateId" />
+          </Key>
+          <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StateName" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserTasks" Relationship="Self.FK__UserTask__StateI__0D7A0286" FromRole="TaskState" ToRole="UserTask" />
         </EntityType>
         <EntityType Name="TaskTrack">
           <Key>
             <PropertyRef Name="TaskTrackId" />
           </Key>
-          <Property Name="TaskTrackId" Type="Int32" Nullable="false" />
-          <Property Name="Age" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UserTracks" Relationship="Self.FK__UserTrack__TaskT__72C60C4A" FromRole="TaskTrack" ToRole="UserTrack" />
+          <Property Name="TaskTrackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserTaskId" Type="Int32" Nullable="false" />
+          <Property Name="TrackDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TrackNote" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="UserTask" Relationship="Self.FK__TaskTrack__UserT__05D8E0BE" FromRole="TaskTrack" ToRole="UserTask" />
+          <NavigationProperty Name="UserTracks" Relationship="Self.FK__UserTrack__TaskT__04E4BC85" FromRole="TaskTrack" ToRole="UserTrack" />
         </EntityType>
         <EntityType Name="UserProfile">
           <Key>
@@ -334,7 +408,7 @@
           <Property Name="Skype" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Direction" Relationship="Self.FK_Direction_To_UserProfile" FromRole="UserProfile" ToRole="Direction" />
-          <NavigationProperty Name="UserTasks" Relationship="Self.FK_UserTask_To_UserProfile" FromRole="UserProfile" ToRole="UserTask" />
+          <NavigationProperty Name="UserTasks" Relationship="Self.FK__UserTask__UserId__0C85DE4D" FromRole="UserProfile" ToRole="UserTask" />
         </EntityType>
         <EntityType Name="UserTask">
           <Key>
@@ -344,7 +418,10 @@
           <Property Name="TaskId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="StateId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="UserProfile" Relationship="Self.FK_UserTask_To_UserProfile" FromRole="UserTask" ToRole="UserProfile" />
+          <NavigationProperty Name="Task" Relationship="Self.FK__UserTask__TaskId__0B91BA14" FromRole="UserTask" ToRole="Task" />
+          <NavigationProperty Name="TaskState" Relationship="Self.FK__UserTask__StateI__0D7A0286" FromRole="UserTask" ToRole="TaskState" />
+          <NavigationProperty Name="TaskTracks" Relationship="Self.FK__TaskTrack__UserT__05D8E0BE" FromRole="UserTask" ToRole="TaskTrack" />
+          <NavigationProperty Name="UserProfile" Relationship="Self.FK__UserTask__UserId__0C85DE4D" FromRole="UserTask" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="UserTrack">
           <Key>
@@ -357,7 +434,7 @@
           <Property Name="TrackNote" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <Property Name="TrackDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Task" Relationship="Self.FK__UserTrack__TaskI__71D1E811" FromRole="UserTrack" ToRole="Task" />
-          <NavigationProperty Name="TaskTrack" Relationship="Self.FK__UserTrack__TaskT__72C60C4A" FromRole="UserTrack" ToRole="TaskTrack" />
+          <NavigationProperty Name="TaskTrack" Relationship="Self.FK__UserTrack__TaskT__04E4BC85" FromRole="UserTrack" ToRole="TaskTrack" />
         </EntityType>
         <EntityType Name="vTask">
           <Key>
@@ -427,6 +504,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__UserTask__TaskId__0B91BA14">
+          <End Role="Task" Type="Self.Task" Multiplicity="1" />
+          <End Role="UserTask" Type="Self.UserTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Task">
+              <PropertyRef Name="TaskId" />
+            </Principal>
+            <Dependent Role="UserTask">
+              <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__UserTrack__TaskI__71D1E811">
           <End Role="Task" Type="Self.Task" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -441,7 +530,35 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserTrack__TaskT__72C60C4A">
+        <Association Name="FK__UserTask__StateI__0D7A0286">
+          <End Role="TaskState" Type="Self.TaskState" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserTask" Type="Self.UserTask" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TaskState">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="UserTask">
+              <PropertyRef Name="StateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskTrack__UserT__05D8E0BE">
+          <End Role="UserTask" Type="Self.UserTask" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TaskTrack" Type="Self.TaskTrack" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTask">
+              <PropertyRef Name="UserTaskId" />
+            </Principal>
+            <Dependent Role="TaskTrack">
+              <PropertyRef Name="UserTaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserTrack__TaskT__04E4BC85">
           <End Role="TaskTrack" Type="Self.TaskTrack" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -455,7 +572,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserTask_To_UserProfile">
+        <Association Name="FK__UserTask__UserId__0C85DE4D">
           <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -474,6 +591,7 @@
           <EntitySet Name="Directions" EntityType="Self.Direction" />
           <EntitySet Name="Samples" EntityType="Self.Sample" />
           <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="TaskStates" EntityType="Self.TaskState" />
           <EntitySet Name="TaskTracks" EntityType="Self.TaskTrack" />
           <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
           <EntitySet Name="UserTasks" EntityType="Self.UserTask" />
@@ -485,15 +603,27 @@
             <End Role="Direction" EntitySet="Directions" />
             <End Role="UserProfile" EntitySet="UserProfiles" />
           </AssociationSet>
+          <AssociationSet Name="FK__UserTask__TaskId__0B91BA14" Association="Self.FK__UserTask__TaskId__0B91BA14">
+            <End Role="Task" EntitySet="Tasks" />
+            <End Role="UserTask" EntitySet="UserTasks" />
+          </AssociationSet>
           <AssociationSet Name="FK__UserTrack__TaskI__71D1E811" Association="Self.FK__UserTrack__TaskI__71D1E811">
             <End Role="Task" EntitySet="Tasks" />
             <End Role="UserTrack" EntitySet="UserTracks" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserTrack__TaskT__72C60C4A" Association="Self.FK__UserTrack__TaskT__72C60C4A">
+          <AssociationSet Name="FK__UserTask__StateI__0D7A0286" Association="Self.FK__UserTask__StateI__0D7A0286">
+            <End Role="TaskState" EntitySet="TaskStates" />
+            <End Role="UserTask" EntitySet="UserTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TaskTrack__UserT__05D8E0BE" Association="Self.FK__TaskTrack__UserT__05D8E0BE">
+            <End Role="UserTask" EntitySet="UserTasks" />
+            <End Role="TaskTrack" EntitySet="TaskTracks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserTrack__TaskT__04E4BC85" Association="Self.FK__UserTrack__TaskT__04E4BC85">
             <End Role="TaskTrack" EntitySet="TaskTracks" />
             <End Role="UserTrack" EntitySet="UserTracks" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserTask_To_UserProfile" Association="Self.FK_UserTask_To_UserProfile">
+          <AssociationSet Name="FK__UserTask__UserId__0C85DE4D" Association="Self.FK__UserTask__UserId__0C85DE4D">
             <End Role="UserProfile" EntitySet="UserProfiles" />
             <End Role="UserTask" EntitySet="UserTasks" />
           </AssociationSet>
@@ -547,11 +677,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TaskStates">
+            <EntityTypeMapping TypeName="DIMSConnection.TaskState">
+              <MappingFragment StoreEntitySet="TaskState">
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TaskTracks">
             <EntityTypeMapping TypeName="DIMSConnection.TaskTrack">
               <MappingFragment StoreEntitySet="TaskTrack">
                 <ScalarProperty Name="TaskTrackId" ColumnName="TaskTrackId" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="UserTaskId" ColumnName="UserTaskId" />
+                <ScalarProperty Name="TrackDate" ColumnName="TrackDate" />
+                <ScalarProperty Name="TrackNote" ColumnName="TrackNote" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

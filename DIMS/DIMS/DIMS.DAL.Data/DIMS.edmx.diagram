@@ -4,22 +4,26 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a1b561061784404db349d078a8545e60" Name="Diagram1">
-        <EntityTypeShape EntityType="DIMSConnection.C__RefactorLog" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DIMSConnection.Direction" Width="1.5" PointX="2.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DIMSConnection.Sample" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DIMSConnection.Task" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DIMSConnection.TaskTrack" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DIMSConnection.UserProfile" Width="1.5" PointX="5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DIMSConnection.UserTask" Width="1.5" PointX="7.25" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DIMSConnection.UserTrack" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="DIMSConnection.vTask" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DIMSConnection.vUserProfile" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DIMSConnection.vUserTrack" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+      <Diagram DiagramId="76b03fab06b249a493353e69d6ccdbc4" Name="Diagram1">
+        <EntityTypeShape EntityType="DIMSConnection.C__RefactorLog" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIMSConnection.Direction" Width="1.5" PointX="1.5" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIMSConnection.Sample" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIMSConnection.Task" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIMSConnection.TaskState" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIMSConnection.TaskTrack" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIMSConnection.UserProfile" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIMSConnection.UserTask" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIMSConnection.UserTrack" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIMSConnection.vTask" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIMSConnection.vUserProfile" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIMSConnection.vUserTrack" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
         <AssociationConnector Association="DIMSConnection.FK_Direction_To_UserProfile" ManuallyRouted="false" />
+        <AssociationConnector Association="DIMSConnection.FK__UserTask__TaskId__0B91BA14" ManuallyRouted="false" />
         <AssociationConnector Association="DIMSConnection.FK__UserTrack__TaskI__71D1E811" ManuallyRouted="false" />
-        <AssociationConnector Association="DIMSConnection.FK__UserTrack__TaskT__72C60C4A" ManuallyRouted="false" />
-        <AssociationConnector Association="DIMSConnection.FK_UserTask_To_UserProfile" ManuallyRouted="false" />
+        <AssociationConnector Association="DIMSConnection.FK__UserTask__StateI__0D7A0286" ManuallyRouted="false" />
+        <AssociationConnector Association="DIMSConnection.FK__TaskTrack__UserT__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="DIMSConnection.FK__UserTrack__TaskT__04E4BC85" ManuallyRouted="false" />
+        <AssociationConnector Association="DIMSConnection.FK__UserTask__UserId__0C85DE4D" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

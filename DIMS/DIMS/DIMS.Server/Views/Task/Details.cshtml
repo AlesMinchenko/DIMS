@@ -1,8 +1,16 @@
 ﻿@model HIMS.Server.Models.TaskViewModel
-
 @{
-    ViewBag.Title = "Details";
+    Layout = null;
 }
+<style>
+    dt {
+        padding: 5px
+    }
+
+    dd {
+        padding: 5px
+    }
+</style>
 <div class="modal-content">
     <div class="modal-header">
         <button class="close" data-dismiss="modal" area-hidden="true">X</button>
@@ -48,6 +56,5 @@
         <dd>
             @Html.DisplayFor(model => model.DeadlineDate)
         </dd>
-
     </dl>
 </div>

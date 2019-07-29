@@ -122,11 +122,15 @@
     <Compile Include="Repositories\ProcedureManager.cs" />
     <Compile Include="Repositories\SampleRepository.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
+    <Compile Include="Repositories\TaskTrackRepository.cs" />
     <Compile Include="Repositories\UserTrackRepository.cs" />
     <Compile Include="Sample.cs">
       <DependentUpon>DIMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Task.cs">
+      <DependentUpon>DIMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaskState.cs">
       <DependentUpon>DIMS.tt</DependentUpon>
     </Compile>
     <Compile Include="TaskTrack.cs">

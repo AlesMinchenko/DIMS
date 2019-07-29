@@ -14,9 +14,11 @@ namespace HIMS.Server.Controllers
     public class UserTrackController : Controller
     {
         IUserTrackService userTrackService;
-        public UserTrackController(IUserTrackService userTrackService)
+        ITaskService taskService;
+        public UserTrackController(IUserTrackService userTrackService, ITaskService taskService)
         {
             this.userTrackService = userTrackService;
+            this.taskService = taskService;
         }
 
         #region Mappers
@@ -59,6 +61,7 @@ namespace HIMS.Server.Controllers
 
         public ActionResult Create()
         {
+            ViewBag.tasks = new SelectList(taskService.GetTasks(), "TaskId", "TaskId");
             return View();
         }
 
