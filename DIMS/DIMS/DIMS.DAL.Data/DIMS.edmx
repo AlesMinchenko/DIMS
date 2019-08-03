@@ -42,7 +42,7 @@
             <PropertyRef Name="StateId" />
           </Key>
           <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StateName" Type="nchar" MaxLength="1" Nullable="false" />
+          <Property Name="StateName" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="TaskTrack">
           <Key>
@@ -375,7 +375,7 @@
             <PropertyRef Name="StateId" />
           </Key>
           <Property Name="StateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StateName" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="StateName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <NavigationProperty Name="UserTasks" Relationship="Self.FK__UserTask__StateI__0D7A0286" FromRole="TaskState" ToRole="UserTask" />
         </EntityType>
         <EntityType Name="TaskTrack">

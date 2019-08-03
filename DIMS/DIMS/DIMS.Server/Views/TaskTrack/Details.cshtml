@@ -1,0 +1,38 @@
+﻿@model HIMS.Server.Models.TaskTrackViewModel
+
+@{
+    Layout = null;
+}
+<style>
+    dt {
+        padding: 5px
+    }
+
+    dd {
+        padding: 5px
+    }
+</style>
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4>Task track's details</h4>
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TrackDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrackDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrackNote)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TrackNote)
+        </dd>
+
+    </dl>
+</div>

@@ -17,9 +17,11 @@ namespace HIMS.Server.Controllers
     public class TaskTrackController : Controller
     {
         ITaskTrackService taskTrackService;
-        public TaskTrackController(ITaskTrackService taskTrackService)
+        IUserTaskService userTaskService;
+        public TaskTrackController(ITaskTrackService taskTrackService, IUserTaskService userTaskService)
         {
             this.taskTrackService = taskTrackService;
+            this.userTaskService = userTaskService;
         }
 
         #region Mappers
@@ -59,6 +61,7 @@ namespace HIMS.Server.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.UserTaskId = new SelectList(userTaskService.GetUserTasks(), "UserTaskId", "UserTaskId");
             return View("Create");
         }
 
@@ -86,6 +89,7 @@ namespace HIMS.Server.Controllers
 
             var taskTrackDtos = taskTrackService.GetTaskTrack(id);
             var taskTrackResult = MapperForCRUD(taskTrackDtos);
+            ViewBag.UserTaskId = new SelectList(userTaskService.GetUserTasks(), "UserTaskId", "UserTaskId");
 
             if (taskTrackResult == null)
             {

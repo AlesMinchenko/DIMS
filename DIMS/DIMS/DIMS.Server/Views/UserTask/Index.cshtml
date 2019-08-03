@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HIMS.Server.Models.TaskTrackViewModel>
+﻿@model IEnumerable<HIMS.Server.Models.UserTaskViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -6,25 +6,24 @@
 <div id="modDialog" class="modal fade">
     <div id="dialogContent" class="modal-dialog"></div>
 </div>
-<h2>Task tracks list</h2>
+<h2>User's tasks list</h2>
 <hr />
-
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "taskCreate" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TaskTrackId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.UserTaskId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TrackDate)
+            @Html.DisplayNameFor(model => model.StateId)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TrackNote)
+            @Html.DisplayNameFor(model => model.TaskId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
         </th>
         <th></th>
     </tr>
@@ -33,21 +32,22 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.TaskTrackId)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.UserTaskId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TrackDate)
+                @Html.DisplayFor(modelItem => item.StateId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TrackNote)
+                @Html.DisplayFor(modelItem => item.TaskId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.TaskTrackId }, new { @class = "editTask" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.TaskTrackId }, new { @class = "taskItem" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.TaskTrackId }, new { @class = "deleteTask" })
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.UserTaskId }, new { @class = "editTask" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.UserTaskId }, new { @class = "taskItem" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.UserTaskId }, new { @class = "taskDelete" })
             </td>
         </tr>
     }

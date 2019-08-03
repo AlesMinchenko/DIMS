@@ -11,6 +11,8 @@ namespace HIMS.EF.DAL.Data
         IRepository<Task> Tasks { get; }
         IRepository<UserTrack> UserTracks { get; }
         IRepository<TaskTrack> TaskTracks { get; }
+        IRepository<UserTask> UserTasks { get; }
+        IRepository<TaskState> TaskStates { get; }
 
         void Save();
     }

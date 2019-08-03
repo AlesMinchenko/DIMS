@@ -11,8 +11,8 @@ namespace HIMS.BL.Interfaces
     {
         IEnumerable<TaskDTO> GetTasks();
         TaskDTO GetTask(int? id);
-        void Create(TaskDTO chart);
-        void Edit(TaskDTO chart);
+        void Create(TaskDTO task);
+        void Edit(TaskDTO task);
         void Delete(int? id);
         void Dispose();
     }

@@ -1,0 +1,80 @@
+﻿@model IEnumerable<HIMS.Server.Models.TaskStateViewModel>
+
+@{
+    ViewBag.Title = "List of tasks";
+}
+<body>
+    <div id="modDialog" class="modal fade">
+        <div id="dialogContent" class="modal-dialog"></div>
+    </div>
+    <h2>Tasks state list</h2>
+    <hr />
+    <p>
+        @Html.ActionLink("Create new task", "Create", null, new { @class = "stateCreate" })
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.StateName)
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.StateId }, new { @class = "editState" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.StateId }, new { @class = "stateItem" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.StateId }, new { @class = "stateDelete" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".stateDelete").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+            $.ajaxSetup({ cache: false });
+            $(".editState").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+            $.ajaxSetup({ cache: false });
+            $(".stateCreate").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+            $(".stateItem").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
+}

@@ -13,6 +13,8 @@ namespace HIMS.EF.DAL.Data.Repositories
         private UserTrackRepository userTrackRepository;
         private SampleRepository sampleRepository;
         private TaskTrackRepository taskTrackRepository;
+        private UserTaskRepository userTaskRepository;
+        private TaskStateRepository taskStateRepository;
 
         public EFUnitOfWork()
         {
@@ -43,6 +45,24 @@ namespace HIMS.EF.DAL.Data.Repositories
                 if (userTrackRepository == null)
                     userTrackRepository = new UserTrackRepository(db);
                 return userTrackRepository;
+            }
+        }
+        public IRepository<UserTask> UserTasks
+        {
+            get
+            {
+                if (userTaskRepository == null)
+                    userTaskRepository = new UserTaskRepository(db);
+                return userTaskRepository;
+            }
+        }
+        public IRepository<TaskState> TaskStates
+        {
+            get
+            {
+                if (taskStateRepository == null)
+                    taskStateRepository = new TaskStateRepository(db);
+                return taskStateRepository;
             }
         }
         public IRepository<Sample> Samples

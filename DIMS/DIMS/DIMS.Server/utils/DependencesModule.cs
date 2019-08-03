@@ -17,6 +17,9 @@ namespace HIMS.Server.utils
             Bind<ITaskService>().To<TaskService>();
             Bind<IUserTrackService>().To<UserTrackService>();
             Bind<ITaskTrackService>().To<TaskTrackService>();
+            Bind<ITaskStateService>().To<TaskStateService>();
+            Bind<IUserTaskService>().To<UserTaskService>();
+
         }
     }
 }

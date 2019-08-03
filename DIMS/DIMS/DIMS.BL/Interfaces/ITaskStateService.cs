@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace HIMS.BL.Interfaces
 {
-    public interface IUserTrackService
+   public interface ITaskStateService
     {
-        IEnumerable<UserTrackDTO> GetUserTracks();
-        UserTrackDTO GetUserTrack(int? id);
-        void Create(UserTrackDTO userTrack);
-        void Edit(UserTrackDTO userTrack);
+        IEnumerable<TaskStateDTO> GetTaskStates();
+        TaskStateDTO GetTaskState(int? id);
+        void Create(TaskStateDTO taskState);
+        void Edit(TaskStateDTO taskState);
         void Delete(int? id);
         void Dispose();
     }

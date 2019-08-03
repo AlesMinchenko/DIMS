@@ -1,0 +1,46 @@
+﻿@model HIMS.Server.Models.UserTaskViewModel
+
+@{
+    Layout = null;
+}
+<style>
+    dt {
+        padding: 5px
+    }
+
+    dd {
+        padding: 5px
+    }
+</style>
+<div class="modal-content">
+    <div class="modal-header">
+        <button class="close" data-dismiss="modal" area-hidden="true">X</button>
+        <h4>Task's details</h4>
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Task.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Task.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskState.StateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskState.StateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserProfile.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserProfile.Name)
+        </dd>
+
+    </dl>
+</div>

@@ -93,6 +93,8 @@ namespace HIMS.Server.Controllers
 
             var userTrackDtos = userTrackService.GetUserTrack(id);
             var userTrackResult = MapperForCRUD(userTrackDtos);
+            ViewBag.TaskId = new SelectList(taskService.GetTasks(), "TaskId", "Name");
+            ViewBag.TaskTrackId = new SelectList(taskTrackService.GetTaskTracks(), "TaskTrackId", "TrackNote");
 
 
             if (userTrackResult == null)

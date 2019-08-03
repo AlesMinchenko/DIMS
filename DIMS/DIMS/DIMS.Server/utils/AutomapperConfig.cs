@@ -31,6 +31,11 @@ namespace HIMS.Server.utils
                 cfg.CreateMap<TaskTrackDTO, TaskTrack>();
                 cfg.CreateMap<TaskTrackViewModel, TaskTrackDTO>();
                 cfg.CreateMap<TaskTrackDTO, TaskTrackViewModel>();
+                cfg.CreateMap<TaskState, TaskStateDTO>();
+                cfg.CreateMap<TaskStateDTO, TaskState>();
+                cfg.CreateMap<TaskStateViewModel, TaskStateDTO>();
+                cfg.CreateMap<TaskStateDTO, TaskStateViewModel>();
+
 
             });
         }

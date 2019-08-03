@@ -21,15 +21,13 @@ namespace HIMS.BL.Services
         }
 
         #region Mappers
-        private UserTrackDTO Mapper(int? id)
+        private UserTrackDTO MapperGetUserTrack(int? id)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrack, UserTrackDTO>()).CreateMapper();
-            return mapper.Map<UserTrack, UserTrackDTO>(Database.UserTracks.Get(id.Value));
+            return Mapper.Map<UserTrack, UserTrackDTO>(Database.UserTracks.Get(id.Value));
         }
         private UserTrack MapperForCRUD(UserTrackDTO userTrackDTO)
         {
-            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<UserTrackDTO, UserTrack>()).CreateMapper();
-            return mapper.Map<UserTrackDTO, UserTrack>(userTrackDTO);
+            return Mapper.Map<UserTrackDTO, UserTrack>(userTrackDTO);
         }
         #endregion
 
@@ -42,7 +40,7 @@ namespace HIMS.BL.Services
         {
             if (id == 0)
                 throw new ValidationException("The ID does not exist", "");
-            return Mapper(id);
+            return MapperGetUserTrack(id);
 
         }
         public void Create(UserTrackDTO userTrack)
